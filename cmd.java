@@ -1,26 +1,26 @@
 package CMD;
 
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class cmd {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		int i;
+		
 		Scanner scan;
 		String domain;
 		String result;
-		String substring;
 		Process p;
 		InputStream is;
 		InputStreamReader isr;
 		BufferedReader br;
 		
-		List list = new List();
-		
+		ArrayList list = new ArrayList();
 		
 		
 		try{
@@ -34,14 +34,25 @@ public class cmd {
 			br = new BufferedReader(isr);
 			
 			String line=null;
+			String line1=null;
 			
 			while((line = br.readLine()) != null){
-				System.out.println(line);
 				if(line.contains("mail exchanger =")){
 					result = line.substring(line.indexOf("mail exchanger")+17);
 					System.out.println(result);
+					list.add(result);
 				}
 			}
+			for (i=0; i<list.size(); i++){
+				p = new ProcessBuilder("cmd", "/c", "nslookup -query=a "+list.get(i)+" 168.126.63.1").start();
+				is = p.getInputStream();
+				isr = new InputStreamReader(is);
+				br = new BufferedReader(isr);
+				while((line1 = br.readLine()) !=null ){
+					System.out.println(line1);
+				}
+			}
+			
 		}catch(Exception e){
 			System.out.println(e);
 		}
