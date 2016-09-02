@@ -1,5 +1,6 @@
 package CMD;
 
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,16 +10,20 @@ public class cmd {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Runtime rt;
 		Scanner scan;
 		String domain;
 		String result;
+		String substring;
 		Process p;
 		InputStream is;
 		InputStreamReader isr;
 		BufferedReader br;
+		
+		List list = new List();
+		
+		
+		
 		try{
-			rt = Runtime.getRuntime();
 			scan = new Scanner(System.in);
 			domain = scan.nextLine();
 			
@@ -32,8 +37,8 @@ public class cmd {
 			
 			while((line = br.readLine()) != null){
 				System.out.println(line);
-				if(line.contains("mail exchanger")){
-					result = line;
+				if(line.contains("mail exchanger =")){
+					result = line.substring(line.indexOf("mail exchanger")+17);
 					System.out.println(result);
 				}
 			}
