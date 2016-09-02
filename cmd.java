@@ -13,16 +13,20 @@ public class cmd {
 		Scanner scan;
 		String domain;
 		String result;
+		Process p;
+		InputStream is;
+		InputStreamReader isr;
+		BufferedReader br;
 		try{
 			rt = Runtime.getRuntime();
 			scan = new Scanner(System.in);
 			domain = scan.nextLine();
 			
-			Process p = new ProcessBuilder("cmd", "/c", "nslookup -query=mx "+domain+" 168.126.63.1").start();
+			p = new ProcessBuilder("cmd", "/c", "nslookup -query=mx "+domain+" 168.126.63.1").start();
 			
-			InputStream is = p.getInputStream();
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader br = new BufferedReader(isr);
+			is = p.getInputStream();
+			isr = new InputStreamReader(is);
+			br = new BufferedReader(isr);
 			
 			String line=null;
 			
