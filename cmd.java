@@ -34,7 +34,6 @@ public class cmd {
 			br = new BufferedReader(isr);
 			
 			String line=null;
-			String line1=null;
 			
 			while((line = br.readLine()) != null){
 				if(line.contains("mail exchanger =")){
@@ -43,13 +42,15 @@ public class cmd {
 					list.add(result);
 				}
 			}
+			
+			line=null;
 			for (i=0; i<list.size(); i++){
 				p = new ProcessBuilder("cmd", "/c", "nslookup -query=a "+list.get(i)+" 168.126.63.1").start();
 				is = p.getInputStream();
 				isr = new InputStreamReader(is);
 				br = new BufferedReader(isr);
-				while((line1 = br.readLine()) !=null ){
-					System.out.println(line1);
+				while((line = br.readLine()) !=null ){
+					System.out.println(line);
 				}
 			}
 			
